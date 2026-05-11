@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stories from the Field — PhD Research at the Centre of African Studies, Edinburgh</title>
+  <meta name="description" content="A spotlight on doctoral research and careers from the Centre of African Studies, University of Edinburgh.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js"></script>
+  <style>
+    /* ===== Reset & base ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --ink:        #1c1814;
+      --ink-soft:   #3a3530;
+      --paper:      #f5ede0;
+      --paper-deep: #ede2cd;
+      --cream:      #f9f3e7;
+      --terracotta: #b8543a;
+      --terracotta-deep: #8e3e2a;
+      --ochre:      #c89344;
+      --sage:       #6b7a5a;
+      --teal:       #2d4a4f;
+      --plum:       #6c3a4a;
+      --copper:     #a2613b;
+      --rule:       #d9cdb5;
+      --shadow:     0 30px 60px -20px rgba(28, 24, 20, 0.25);
+
+      --serif: "Fraunces", "Times New Roman", serif;
+      --sans:  "Inter", system-ui, -apple-system, sans-serif;
+
+      --max:  1240px;
+      --gutter: clamp(20px, 4vw, 56px);
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.55;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--serif);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.08;
+      margin: 0;
+      font-variation-settings: "SOFT" 30, "opsz" 144;
+    }
+
+    .display { font-size: clamp(48px, 9vw, 132px); font-weight: 350; }
+    .h2 { font-size: clamp(36px, 5vw, 64px); }
+    .h3 { font-size: clamp(24px, 3vw, 38px); }
+    .eyebrow {
+      font-family: var(--sans);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--terracotta);
+    }
+    .lede {
+      font-family: var(--serif);
+      font-weight: 350;
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.4;
+      color: var(--ink-soft);
+      max-width: 720px;
+    }
+
+    .rule {
+      height: 1px;
+      background: var(--rule);
+      width: 80px;
+      margin: 24px 0;
+      border: 0;
+    }
+
+    a { color: var(--terracotta-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+    /* ===== Nav ===== */
+    nav.top {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px var(--gutter);
+      background: linear-gradient(to bottom, rgba(245, 237, 224, 0.92), rgba(245, 237, 224, 0));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.top.scrolled {
+      background: rgba(245, 237, 224, 0.96);
+      box-shadow: 0 1px 0 var(--rule);
+    }
+    nav .brand {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    nav .brand small {
+      display: block;
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+    nav .links { display: flex; gap: 28px; }
+    nav .links a {
+      font-family: var(--sans);
+      font-size: 13px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      position: relative;
+      padding: 4px 0;
+    }
+    nav .links a::after {
+      content: "";
+      position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: var(--terracotta);
+      transition: width 0.3s ease;
+    }
+    nav .links a:hover::after { width: 100%; }
+    @media (max-width: 720px) {
+      nav .links { gap: 16px; }
+      nav .links a { font-size: 12px; }
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px var(--gutter) 80px;
+      position: relative;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .hero .display {
+      max-width: 14ch;
+    }
+    .hero .display em {
+      font-style: italic;
+      font-weight: 350;
+      color: var(--terracotta);
+    }
+    .hero-meta {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 900px;
+      align-items: end;
+    }
+    .hero-meta .lede { margin: 0; }
+    .hero-meta .stats {
+      display: flex; gap: 36px;
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+    }
+    .hero-meta .stats .n {
+      display: block;
+      font-family: var(--serif);
+      font-size: 44px;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 6px;
+      font-weight: 350;
+    }
+    .scroll-cue {
+      position: absolute;
+      bottom: 32px; left: var(--gutter);
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .scroll-cue::after {
+      content: ""; width: 60px; height: 1px; background: var(--ink-soft);
+      animation: line 2s ease-in-out infinite;
+      transform-origin: left center;
+    }
+    @keyframes line {
+      0%, 100% { transform: scaleX(0.4); opacity: 0.6; }
+      50% { transform: scaleX(1); opacity: 1; }
+    }
+    @media (max-width: 720px) {
+      .hero-meta { grid-template-columns: 1fr; gap: 24px; }
+      .hero-meta .stats { gap: 24px; }
+      .hero-meta .stats .n { font-size: 32px; }
+    }
+
+    /* ===== Section base ===== */
+    section.feature {
+      padding: 120px var(--gutter);
+      max-width: var(--max);
+      margin: 0 auto;
+      position: relative;
+    }
+    section.feature.dark { background: var(--ink); color: var(--cream); max-width: none; margin: 0; }
+    section.feature.dark .eyebrow { color: var(--ochre); }
+    section.feature.dark .rule { background: rgba(217, 205, 181, 0.25); }
+    section.feature.dark .lede { color: rgba(245, 237, 224, 0.78); }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      margin-bottom: 64px;
+      align-items: start;
+    }
+    .section-head .label .num {
+      font-family: var(--serif);
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      font-feature-settings: "tnum";
+    }
+    @media (max-width: 900px) {
+      .section-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+      section.feature { padding: 80px var(--gutter); }
+    }
+
+    /* ===== Profiles carousel ===== */
+    .carousel-wrap { position: relative; }
+    .carousel {
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: var(--gutter);
+      padding: 8px 0 40px 0;
+      margin: 0 calc(-1 * var(--gutter));
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .carousel::-webkit-scrollbar { display: none; }
+
+    .profile-card {
+      flex: 0 0 min(460px, 82vw);
+      scroll-snap-align: start;
+      background: var(--cream);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 640px;
+    }
+    .profile-card:hover { transform: translateY(-4px); box-shadow: 0 40px 80px -20px rgba(28, 24, 20, 0.35); }
+    .profile-card .crest {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.94);
+    }
+    .profile-card .crest .mono {
+      font-family: var(--serif);
+      font-size: 96px;
+      font-style: italic;
+      font-weight: 350;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .profile-card .crest::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at top right, rgba(255,255,255,0.18), transparent 60%),
+                  radial-gradient(ellipse at bottom left, rgba(0,0,0,0.18), transparent 60%);
+      pointer-events: none;
+    }
+    .profile-card .crest .country {
+      position: absolute; bottom: 16px; left: 20px;
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .profile-card .crest .year {
+      position: absolute; top: 16px; right: 20px;
+      font-family: var(--serif);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+
+    .profile-card .body {
+      padding: 28px 28px 32px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-card h3 {
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .profile-card .role {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .profile-card .thesis {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.45;
+      color: var(--ink);
+      margin: 12px 0 18px;
+      padding-left: 14px;
+      border-left: 2px solid var(--rule);
+    }
+    .profile-card .tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: auto;
+    }
+    .profile-card .tag {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--paper-deep);
+      color: var(--ink-soft);
+    }
+    .profile-card .read-more {
+      margin-top: 18px;
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .profile-card .read-more::after {
+      content: "→";
+      transition: transform 0.3s;
+    }
+    .profile-card:hover .read-more::after { transform: translateX(4px); }
+
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 8px;
+    }
+    .carousel-dots { display: flex; gap: 10px; align-items: center; }
+    .carousel-dots .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--rule);
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+    .carousel-dots .dot.active {
+      background: var(--terracotta);
+      width: 32px;
+      border-radius: 4px;
+    }
+    .arrow-row { display: flex; gap: 12px; }
+    .arrow {
+      width: 48px; height: 48px;
+      border: 1px solid var(--ink);
+      background: transparent;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--ink);
+      transition: all 0.3s;
+    }
+    .arrow:hover { background: var(--ink); color: var(--cream); }
+    .arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+    section.feature.dark .arrow { border-color: var(--cream); color: var(--cream); }
+    section.feature.dark .arrow:hover { background: var(--cream); color: var(--ink); }
+
+    /* ===== Profile reader (overlay) ===== */
+    .reader {
+      position: fixed; inset: 0;
+      background: rgba(28, 24, 20, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      display: none;
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+    .reader.open { display: flex; animation: fade 0.3s ease; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+    .reader-panel {
+      width: min(820px, 100%);
+      background: var(--cream);
+      overflow-y: auto;
+      padding: 80px clamp(24px, 5vw, 64px);
+      position: relative;
+      animation: slide 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes slide { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    .reader-close {
+      position: absolute; top: 24px; right: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--ink);
+      background: transparent;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .reader-close:hover { background: var(--ink); color: var(--cream); }
+
+    .reader .crest-bar {
+      height: 80px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+      display: flex; align-items: center; padding: 0 28px;
+      color: var(--cream);
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 36px;
+      letter-spacing: -0.02em;
+    }
+    .reader h2 {
+      font-size: clamp(32px, 5vw, 54px);
+      margin-bottom: 8px;
+    }
+    .reader .subhead {
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+    }
+    .reader .thesis-line {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.35;
+      color: var(--ink);
+      padding: 18px 0 18px 20px;
+      border-left: 3px solid var(--terracotta);
+      margin: 28px 0 32px;
+    }
+    .reader .qa { margin-bottom: 36px; }
+    .reader .q {
+      font-family: var(--sans);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 600;
+      color: var(--terracotta-deep);
+      margin-bottom: 10px;
+    }
+    .reader .a {
+      font-family: var(--serif);
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      font-weight: 350;
+    }
+    .reader .a p { margin: 0 0 14px; }
+    .reader .footer-meta {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .reader .footer-meta .field {
+      font-family: var(--sans);
+      font-size: 13px;
+    }
+    .reader .footer-meta .field .label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    @media (max-width: 600px) {
+      .reader .footer-meta { grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    /* ===== Map section ===== */
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .map-wrap {
+      position: relative;
+      background: rgba(217, 205, 181, 0.18);
+      border-radius: 4px;
+      aspect-ratio: 1 / 1.05;
+      overflow: hidden;
+    }
+    .map-wrap svg { width: 100%; height: 100%; display: block; }
+    .map-wrap .country {
+      fill: rgba(217, 205, 181, 0.22);
+      stroke: rgba(245, 237, 224, 0.4);
+      stroke-width: 0.5;
+      transition: fill 0.3s;
+    }
+    .map-wrap .country.active {
+      fill: rgba(200, 147, 68, 0.35);
+    }
+    .map-wrap .pin {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .map-wrap .pin:hover { transform: scale(1.3); }
+    .map-wrap .pin circle.outer {
+      stroke: var(--cream);
+      stroke-width: 2;
+      transition: r 0.3s;
+    }
+    .map-wrap .pin.active circle.outer { stroke: var(--ochre); stroke-width: 3; }
+    .map-wrap .pin .pulse {
+      fill: none;
+      animation: pulse 2s ease-out infinite;
+      opacity: 0;
+    }
+    .map-wrap .pin.active .pulse { animation-play-state: running; opacity: 1; }
+    @keyframes pulse {
+      0% { r: 6; opacity: 0.7; }
+      100% { r: 24; opacity: 0; }
+    }
+
+    .map-panel {
+      background: rgba(245, 237, 224, 0.06);
+      border: 1px solid rgba(245, 237, 224, 0.15);
+      border-radius: 4px;
+      padding: 36px 32px;
+      min-height: 460px;
+      position: sticky;
+      top: 96px;
+    }
+    .map-panel .eyebrow { color: var(--ochre); margin-bottom: 14px; }
+    .map-panel h3 {
+      font-size: clamp(26px, 3vw, 36px);
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+    .map-panel .where {
+      font-family: var(--sans);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      margin-bottom: 18px;
+    }
+    .map-panel .blurb {
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.55;
+      color: rgba(245, 237, 224, 0.82);
+      font-weight: 350;
+    }
+    .map-panel .meta {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(245, 237, 224, 0.15);
+      font-family: var(--sans);
+      font-size: 13px;
+      color: rgba(245, 237, 224, 0.6);
+      line-height: 1.5;
+    }
+    .map-panel .legend {
+      margin-top: 24px;
+      display: flex; flex-wrap: wrap; gap: 10px 18px;
+      font-family: var(--sans);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(245, 237, 224, 0.6);
+    }
+    .map-panel .legend span {
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .map-panel .legend i {
+      width: 10px; height: 10px; border-radius: 50%;
+      display: inline-block;
+    }
+    @media (max-width: 900px) {
+      .map-grid { grid-template-columns: 1fr; gap: 32px; }
+      .map-panel { position: static; min-height: auto; }
+    }
+
+    /* ===== Pathways ===== */
+    .pathways-stage {
+      position: relative;
+      background: var(--cream);
+      border-radius: 4px;
+      padding: 56px 36px;
+      box-shadow: var(--shadow);
+    }
+    .pathways-stage svg.flow { width: 100%; height: auto; display: block; }
+
+    .path-source rect { fill: var(--ink); }
+    .path-source text { fill: var(--cream); font-family: var(--serif); font-size: 18px; }
+
+    .path-cat rect {
+      fill: var(--paper-deep);
+      stroke: var(--rule);
+      stroke-width: 1;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .path-cat:hover rect, .path-cat.active rect {
+      fill: var(--ochre);
+      stroke: var(--terracotta-deep);
+    }
+    .path-cat text.title {
+      fill: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      pointer-events: none;
+    }
+    .path-cat text.count {
+      fill: var(--ink-soft);
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .path-stream {
+      fill: none;
+      stroke: var(--rule);
+      stroke-width: 14;
+      stroke-linecap: round;
+      transition: stroke 0.4s;
+      opacity: 0.7;
+    }
+    .path-stream.highlight {
+      stroke: var(--terracotta);
+      opacity: 0.95;
+    }
+
+    .path-people-col {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .person-card {
+      padding: 18px;
+      background: var(--paper);
+      border-radius: 4px;
+      border-left: 3px solid var(--rule);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .person-card.dim { opacity: 0.3; filter: grayscale(1); }
+    .person-card.match { border-left-color: var(--terracotta); }
+    .person-card .name {
+      font-family: var(--serif);
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .person-card .post {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .person-card .cat-tag {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--terracotta-deep);
+    }
+
+    /* ===== CTA ===== */
+    .cta {
+      padding: 120px var(--gutter);
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(40px, 7vw, 88px);
+      max-width: 18ch;
+      margin: 0 auto;
+    }
+    .cta h2 em { font-style: italic; color: var(--terracotta); font-weight: 350; }
+    .cta .lede { margin: 32px auto 40px; text-align: center; }
+    .cta .actions {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 36px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 100px;
+      transition: all 0.3s;
+      border: 1px solid var(--ink);
+    }
+    .btn.primary { background: var(--ink); color: var(--cream); }
+    .btn.primary:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+    .btn.ghost { background: transparent; color: var(--ink); }
+    .btn.ghost:hover { background: var(--ink); color: var(--cream); }
+
+    /* ===== Footer ===== */
+    footer {
+      padding: 56px var(--gutter) 64px;
+      max-width: var(--max);
+      margin: 0 auto;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 32px;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    footer .colophon {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: var(--ink);
+      max-width: 50ch;
+    }
+    footer a { color: var(--ink); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer h4 {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+    footer ul { list-style: none; padding: 0; margin: 0; }
+    footer ul li { margin-bottom: 6px; }
+    @media (max-width: 700px) {
+      footer { grid-template-columns: 1fr; }
+    }
+
+    /* ===== Reveal animation ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===== Tooltip ===== */
+    .map-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transform: translate(-50%, -120%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .map-tooltip.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <nav class="top">
+    <div class="brand">
+      Stories from the Field
+      <small>Centre of African Studies · Edinburgh</small>
+    </div>
+    <div class="links">
+      <a href="#profiles">Profiles</a>
+      <a href="#map">Map</a>
+      <a href="#pathways">Pathways</a>
+      <a href="#support">Support</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">A spotlight on doctoral research</div>
+    <h1 class="display" style="margin-top: 24px;">Stories<br>from <em>the&nbsp;field.</em></h1>
+    <hr class="rule">
+    <div class="hero-meta">
+      <p class="lede">
+        Doctoral research at the Centre of African Studies, University of Edinburgh, takes its students to refugee camps in Tanzania, water utilities in Chad, port construction sites in Kenya, and the everyday offices of civil servants in Malawi. Here is what some of them found — and where their work has taken them since.
+      </p>
+      <div class="stats">
+        <div>
+          <span class="n">7</span>
+          recent graduates
+        </div>
+        <div>
+          <span class="n">11</span>
+          fieldwork countries
+        </div>
+        <div>
+          <span class="n">4</span>
+          career pathways
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll</div>
+  </header>
+
+  <section class="feature" id="profiles">
+    <div class="section-head">
+      <div class="label">
+        <div class="num">01 — Profiles</div>
+        <hr class="rule">
+        <h2 class="h2">Seven<br>scholars.</h2>
+      </div>
+      <div>
+        <div class="eyebrow">Read their work</div>
+        <p class="lede" style="margin-top: 16px;">
+          Each graduate built their doctorate around a single place and a single question — and lived inside that question for a year or more. Click any card to read their answers to three questions: <em>what</em> they studied, <em>how</em> they studied it, and where it took them next.
+        </p>
+      </div>
+    </div>
+
+    <div class="carousel-wrap">
+      <div class="carousel" id="profileCarousel"></div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="dots"></div>
+        <div class="arrow-row">
+          <button class="arrow" id="prevBtn" aria-label="Previous">←</button>
+          <button class="arrow" id="nextBtn" aria-label="Next">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature dark" id="map">
+    <div style="max-width: var(--max); margin: 0 auto;">
+      <div class="section-head">
+        <div class="label">
+          <div class="num" style="color: rgba(245,237,224,0.6);">02 — Map</div>
+          <hr class="rule">
+          <h2 class="h2">Where the<br>work&nbsp;happens.</h2>
+        </div>
+        <div>
+          <div class="eyebrow">A continent of fieldsites</div>
+          <p class="lede" style="margin-top: 16px;">
+            From the floodplains of southern Malawi to the Lamu port construction sites on the Kenyan coast, the everyday geography of CAS doctoral work spans the continent. Click a pin to see who worked there and why.
+          </p>
+        </div>
+      </div>
+
+      <div class="map-grid">
+        <div class="map-wrap" id="mapWrap">
+          <svg id="africaMap" viewBox="0 0 600 620" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="map-tooltip" id="mapTooltip"></div>
+        </div>
+        <aside class="map-panel" id="mapPanel">
+          <div class="eyebrow">Now showing</div>
+          <h3 id="panelName">Hover or tap a pin</h3>
+          <div class="where" id="panelWhere">Select a fieldsite</div>
+          <p class="blurb" id="panelBlurb">Each pin marks a place where a CAS doctoral student spent months of ethnographic, qualitative, or mixed-methods fieldwork. Hover to read about the research; click to open the full profile.</p>
+          <div class="meta" id="panelMeta"></div>
+          <div class="legend">
+            <span><i style="background:#b8543a"></i> Governance &amp; the state</span>
+            <span><i style="background:#c89344"></i> Infrastructure &amp; political economy</span>
+            <span><i style="background:#2d4a4f"></i> Policing &amp; rights</span>
+            <span><i style="background:#6b7a5a"></i> Migration &amp; displacement</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature" id="pathways">
+    <div class="section-head">
+      <div class="label">
+        <div class="num">03 — Pathways</div>
+        <hr class="rule">
+        <h2 class="h2">After<br>the&nbsp;PhD.</h2>
+      </div>
+      <div>
+        <div class="eyebrow">Where graduates go</div>
+        <p class="lede" style="margin-top: 16px;">
+          A CAS doctorate doesn't sort neatly into one career. Some graduates head into university posts; others into humanitarian or government work; many move between the two. Click a destination to see who took that route.
+        </p>
+      </div>
+    </div>
+
+    <div class="pathways-stage">
+      <svg class="flow" viewBox="0 0 1100 360" id="pathFlow" preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="path-people-col" id="peopleCol"></div>
+    </div>
+  </section>
+
+  <section class="cta" id="support">
+    <h2>Help us tell the <em>next</em> seven stories.</h2>
+    <p class="lede">
+      Doctoral scholarships at the Centre of African Studies are what make this kind of long-form, place-based research possible. If you'd like to support the next cohort — or learn more about the Centre — we'd love to hear from you.
+    </p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:cas@ed.ac.uk">Get in touch →</a>
+      <a class="btn ghost" href="https://www.sps.ed.ac.uk/centre-african-studies" target="_blank" rel="noopener">Visit the Centre</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="colophon">
+      <strong style="font-family: var(--serif); font-size: 20px; font-weight: 400;">Centre of African Studies</strong><br>
+      University of Edinburgh · School of Social and Political Science<br>
+      One of Europe's leading interdisciplinary doctoral programmes in African Studies and International Development.
+    </div>
+    <div>
+      <h4>Programme</h4>
+      <ul>
+        <li><a href="https://www.sps.ed.ac.uk/centre-african-studies">About the Centre</a></li>
+        <li><a href="https://www.sps.ed.ac.uk/centre-african-studies/phd-graduates">Original graduate page</a></li>
+        <li><a href="https://era.ed.ac.uk/handle/1842/1685">Doctoral thesis archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>This page</h4>
+      <ul>
+        <li>A design prototype</li>
+        <li>Based on seven public profiles</li>
+        <li>Built for fundraising &amp; outreach</li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Reader overlay -->
+  <div class="reader" id="reader">
+    <div class="reader-panel" id="readerPanel">
+      <button class="reader-close" id="readerClose" aria-label="Close">×</button>
+      <div class="crest-bar" id="readerCrest"></div>
+      <div class="subhead" id="readerSubhead"></div>
+      <h2 id="readerName"></h2>
+      <div class="thesis-line" id="readerThesis"></div>
+      <div class="qa">
+        <div class="q">What was the subject of the dissertation?</div>
+        <div class="a" id="readerQ1"></div>
+      </div>
+      <div class="qa">
+        <div class="q">What kind of research went into it?</div>
+        <div class="a" id="readerQ2"></div>
+      </div>
+      <div class="qa">
+        <div class="q">What came after the degree?</div>
+        <div class="a" id="readerQ3"></div>
+      </div>
+      <div class="footer-meta">
+        <div class="field">
+          <div class="label">Fieldwork</div>
+          <div id="readerField"></div>
+        </div>
+        <div class="field">
+          <div class="label">Today</div>
+          <div id="readerToday"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ===========================================================
+     DATA — seven recent graduates from Edinburgh's CAS PhD
+     Text drawn from the public spotlight page; lightly trimmed.
+     =========================================================== */
+  const PROFILES = [
+    {
+      id: "hendriks",
+      name: "Tanja Hendriks",
+      initials: "TH",
+      color: "#b8543a",
+      country: "Malawi",
+      where: "Southern Malawi · rural district",
+      coord: [34.30, -13.25],
+      year: "2022",
+      tags: ["Anthropology", "The State", "Disasters"],
+      role: "Civil servants, climate, and the everyday work of government",
+      thesis: "The Malawi State in Relief: An Ethnography of Civil Servants Navigating Duties, Dependencies and Disasters in a Rural District",
+      tagline: "Following one disaster officer for a year in flood-stricken Malawi",
+      q1: "A study of the everyday practices of governing of Malawian civil servants working for the Department of Disaster Management Affairs (DODMA), conducted as part of the wider ANTHUSIA project on the Anthropology of Human Security in Africa.",
+      q2: "One year of ethnographic fieldwork in a disaster-prone rural district in southern Malawi in 2019 — the year Cyclone Idai displaced over a million Malawians. For twelve months Tanja shadowed a single DODMA officer as he went about his job, and found that, contrary to the literature, state agents were central to the humanitarian response even in an aid-dependent, resource-poor context. Her thesis emphasises civil servants' sense of duty and the manifold ways in which they try to do their job to the best of their abilities, despite not having the resources necessary to achieve the results they aim for.",
+      q3: "After defending in September 2022, Tanja began a postdoctoral fellowship at KU Leuven in Belgium, funded by FWO, on <em>Duty and Diligence in Disasters: Civil Servants in the Climate Change Crisis in Malawi</em>. She is conducting additional fieldwork at national level in Malawi and developing the dissertation into a book; two articles have appeared in <em>Etnofoor</em> and <em>The Cambridge Journal of Anthropology</em>.",
+      today: "Postdoctoral Research Fellow, KU Leuven (Belgium)",
+      field: "Rural Malawi, 12 months, 2019",
+      category: "academia",
+      pathwayDetail: "Postdoctoral Fellow, KU Leuven"
+    },
+    {
+      id: "gambino",
+      name: "Elisa Gambino",
+      initials: "EG",
+      color: "#c89344",
+      country: "Kenya",
+      where: "Lamu, Mombasa & Beijing",
+      coord: [40.90, -2.27],
+      year: "2021",
+      tags: ["Political Economy", "China–Africa", "Infrastructure"],
+      role: "Chinese state companies and the politics of African infrastructure",
+      thesis: "The Political Economy of Sino-African Infrastructural Engagement: The Internationalisation of Chinese State-Owned Companies in Kenya",
+      tagline: "How Chinese SOEs embed themselves in African port and rail projects",
+      q1: "Part of the wider African Governance and Space (AFRIGOS) project at CAS on the development of transport corridors in Africa. Elisa's doctorate focused on the key large-scale infrastructure projects with Chinese participation in Kenya, with a particular emphasis on Lamu port.",
+      q2: "Qualitative work — semi-structured interviews and ethnographic observation at Chinese construction sites in Kenya, alongside conversations with government officials, policymakers, company directors, and non-state actors in both Kenya and China. She started out asking what drives Chinese engagement in African infrastructure, and ended up arguing that the <em>modalities</em> through which companies internationalise — the practices and relationships that make them locally embedded — are more analytically important than the headline drivers.",
+      q3: "Elisa defended in 2021 and joined the LSE as a Fellow in the International Politics of China before moving to the Global Development Institute at the University of Manchester in 2023. There she was awarded a Hallsworth Fellowship in Political Economy for her current project, <em>African Hubs, Chinese Trade, and Global Circulation</em>, extending her work to private Chinese firms as well as state-owned ones.",
+      today: "Hallsworth Fellow in Political Economy, University of Manchester",
+      field: "Kenya & China, 2018–2020",
+      category: "academia",
+      pathwayDetail: "Hallsworth Fellow, Manchester"
+    },
+    {
+      id: "wairuri",
+      name: "Kamau Wairuri",
+      initials: "KW",
+      color: "#2d4a4f",
+      country: "Kenya",
+      where: "Nairobi · urban margins",
+      coord: [36.82, -1.29],
+      year: "2022",
+      tags: ["Criminology", "Policing", "Urban Politics"],
+      role: "How marginalised people respond to police abuse — beyond accountability",
+      thesis: "Beyond Policy Accountability: Responses to Police Abuse by People at Kenya's Urban Margins",
+      tagline: "Self-help, intermediaries, and the strategies of people the police have wronged",
+      q1: "A study of how people respond to police abuse. Previous work had shown that marginalised groups — poor young men, sex workers, queer people — are disproportionately abused by police, but no one had systematically analysed how they respond. Kamau argues that we need to go beyond \"police accountability\" as the assumed solution and look at the strategies people actually deploy.",
+      q2: "Primarily interviews and focus group discussions with young men, sex workers, and queer people at the urban margins, alongside interviews with selected officials, NGO staff, and journalists. The study was initially designed around poor young men only, but during scoping fieldwork Kamau realised that police abuse affects a range of under-studied groups, and expanded the project to capture a fuller picture. He found that people draw on individual and collective self-help strategies, and recruit intermediaries who help them counter power imbalances, navigate officialdom, and avoid further harm.",
+      q3: "Kamau defended in June 2022 and was appointed Lecturer in Criminology at Edinburgh Napier University soon afterwards. He is currently developing his thesis into a book and continuing to research the policing of marginalised groups in Kenya.",
+      today: "Lecturer in Criminology, Edinburgh Napier University",
+      field: "Nairobi, Kenya",
+      category: "academia",
+      pathwayDetail: "Lecturer in Criminology, Edinburgh Napier"
+    },
+    {
+      id: "maazaz",
+      name: "Ismaël Maazaz",
+      initials: "IM",
+      color: "#4a6a78",
+      country: "Chad",
+      where: "N'Djamena · also Cameroon, Burkina Faso",
+      coord: [15.05, 12.13],
+      year: "2022",
+      tags: ["Urban Water", "Development", "Anthropology"],
+      role: "Hydropolitics, labour, and access to water in N'Djamena",
+      thesis: "Divided Waters. A Hydropolitical Analysis of Development, Space and Labour in N'Djamena, Chad",
+      tagline: "Drinking water as a political artefact in a Sahelian capital",
+      q1: "An exploration of the politics of water access and supply in N'Djamena. The thesis sits at the intersection of development studies and anthropology, and traces the power dynamics that frame the water landscape of the city.",
+      q2: "Ethnographic fieldwork in N'Djamena, combining observation with interviews of water workers, municipal officers, policy-makers, and end-users. Ismaël's work shows that the social relations around drinking water are entangled with developmental, labour, and spatial patterns, and challenges the prevailing \"natural scarcity\" narrative by making visible how thoroughly water is politicised.",
+      q3: "After defending, Ismaël took up a Saltire Fellowship at the University of Lyon, funded by the Royal Society of Edinburgh, which let him conduct further fieldwork in Chad, Cameroon, and Burkina Faso. In September 2023 he began a postdoctoral research fellowship at the Institute for Advanced Study of the University of Tampere in Finland.",
+      today: "Postdoctoral Fellow, Tampere Institute for Advanced Study",
+      field: "Chad, Cameroon, Burkina Faso",
+      category: "academia",
+      pathwayDetail: "Postdoctoral Fellow, Tampere IAS"
+    },
+    {
+      id: "durodola",
+      name: "Tosin Durodola",
+      initials: "TD",
+      color: "#6c3a4a",
+      country: "Nigeria",
+      where: "Ogun State · former Oru Refugee Camp",
+      coord: [3.47, 6.99],
+      year: "2025",
+      tags: ["Displacement", "Refugee Studies", "Migration"],
+      role: "What happens after refugee status formally ends",
+      thesis: "Does Refugeehood Ever End? Cessation, Homing, Labelling, and Resettlement Dreams Among Post-Cessation Liberians in Nigeria",
+      tagline: "Liberian refugees in Nigeria after the formal protection regime had moved on",
+      q1: "An examination of what happens after people officially lose their refugee status, focused on first-generation \"residual\" Liberian refugees in Nigeria. The study asks how people rebuild a sense of home, how they are labelled by institutions and host communities and themselves, and why many continue to hope for resettlement abroad even when the institutions responsible no longer recognise them. The research was funded by the SPS PhD Scholarship and received the 2025 SPS Outstanding Doctoral Thesis Award.",
+      q2: "Six months of ethnographic fieldwork in and around the former Oru Refugee Camp in Ogun State, Nigeria — interviews, group discussions, and observation with refugees, local community members, government actors, and refugee agency officials. Tosin traces three groups: those who returned to Liberia but later fled again, those not selected for resettlement, and those who tried to settle locally but were abandoned by implementing agencies. The findings demonstrate that the withdrawal of refugee status does not resolve displacement but produces new forms of precarity and protracted uncertainty.",
+      q3: "Tosin joined the Refugee Law Initiative at the School of Advanced Study, University of London, as Visiting Research Fellow, where the thesis is being developed into a monograph. He secured a book contract as lead editor of <em>The Making and Unmaking of Displacement Labels</em>, leads the RLI Working Group on \"Understanding Solutions,\" and is co-editing a special issue with a leading refugee studies journal. Findings have appeared in <em>Refugee Survey Quarterly</em>, <em>Journal of Refugee Studies</em>, and <em>Ethnic and Racial Studies</em>.",
+      today: "Visiting Research Fellow, Refugee Law Initiative · University of London",
+      field: "Ogun State, Nigeria",
+      category: "policy",
+      pathwayDetail: "Visiting Fellow, Refugee Law Initiative (London)"
+    },
+    {
+      id: "douglas",
+      name: "Megan Douglas",
+      initials: "MD",
+      color: "#5e7a5a",
+      country: "Kenya",
+      where: "Nairobi · Congolese diaspora",
+      coord: [36.82, -1.30],
+      year: "2021",
+      tags: ["Migration", "Anthropology", "Wellbeing"],
+      role: "Inclusion and 'the good life' among Congolese in Nairobi",
+      thesis: "Pursuing the Good Life: Displacement, Inclusion, and Wellbeing among Congolese in Nairobi, Kenya",
+      tagline: "Migrants as people with aspirations, not figures in a humanitarian frame",
+      q1: "A study of the everyday experiences and conceptualisations of \"the good life\" among Congolese living in Nairobi — not as distant \"others\" or \"sufferers\" but as people with values, aspirations, and strategies for a better life than the one offered by government or humanitarian regimes. Megan argues that migrants in the city forge inclusion and wellbeing through fluid identities, social interdependencies, and the cultivation of spaces of belonging.",
+      q2: "Nine months of ethnographic fieldwork in Nairobi (2018–2019), mostly split between the Central Business District and the outlying informal settlement of Kabiria. Focus groups, semi-structured interviews, and participant observation: following Congolese to places of worship, work, study; accompanying them on shopping trips to local markets; apprenticing at a hair salon; attending a fashion photoshoot; sharing countless cups of tea — all to learn how aspirations for inclusion, fulfilment, and wellbeing are pursued and realised.",
+      q3: "Megan worked in the Edinburgh charity sector supporting refugees and asylum-seekers, then returned to CAS as a Teaching Fellow. She has since moved into professional services at the University of Edinburgh as Coordinator for the Wits Edinburgh Sustainable African Futures (WESAF) Doctoral Programme — part of the Mastercard Foundation Scholars Program team.",
+      today: "Coordinator, WESAF Doctoral Programme · Mastercard Foundation Scholars Program",
+      field: "Nairobi, Kenya · 9 months",
+      category: "professional",
+      pathwayDetail: "WESAF Coordinator, Edinburgh"
+    },
+    {
+      id: "boeyink",
+      name: "Clayton Boeyink",
+      initials: "CB",
+      color: "#a2613b",
+      country: "Tanzania",
+      where: "North-western Tanzania · refugee camps",
+      coord: [29.62, -4.88],
+      year: "2020",
+      tags: ["Refugees", "Self-reliance", "Humanitarian Practice"],
+      role: "Refugee self-reliance and the politics of camp shutdowns",
+      thesis: "The Politics and Practises of Refugee Self-Reliance in Trifurcated States of North-Western Tanzania",
+      tagline: "Cash, cartels, and the closing of refugee economies",
+      q1: "An examination of the shrinking space of asylum in Tanzanian refugee camps from 2017–2020, situated in a longer history of containment and manipulation of people's movements by the state from the colonial era onward. The thesis centres a series of shutdowns of refugee markets and programmes — including a popular WFP cash transfer scheme — designed to destroy refugee economies and compel repatriation, and looks from below at how refugees enact agency by circumventing the state and co-opting humanitarian structures.",
+      q2: "Living in the village next to the camp for 7 months in 2017, with follow-up visits in subsequent years. Primarily qualitative, but Clayton used a <em>financial diaries</em> method: tracking income, expenditures, and debts for 70 households every two weeks for a year. He hired refugee researchers to scale this work. The trust built across repeated visits opened up candid conversations about cartels controlling the resale of food rations, the trade networks stretching across the region, and the illicit agricultural economies surrounding the camp.",
+      q3: "Clayton transitioned directly into a postdoctoral fellowship on the UK-funded DiSoCo project at Edinburgh — a £3m+ programme studying gender, health, and displacement among Somalis and Congolese across Somalia, DRC, Kenya, and South Africa. He coordinated a team of 50 researchers across six countries before returning home to Iowa in 2023, where he has worked for Lutheran Services in Iowa running refugee resettlement programmes. He continues to publish (15+ peer-reviewed articles, plus pieces in <em>Foreign Policy</em> and <em>The New Humanitarian</em>) and recently served as lead witness preventing the deportation of a young Burundian refugee.",
+      today: "Refugee Resettlement Program, Lutheran Services in Iowa",
+      field: "Tanzania, plus DiSoCo across Somalia, DRC, Kenya, South Africa",
+      category: "civilsociety",
+      pathwayDetail: "Refugee Resettlement, Lutheran Services (USA)"
+    }
+  ];
+
+  // Additional fieldwork pins for the map (secondary research sites)
+  const EXTRA_PINS = [
+    { person: "boeyink", coord: [45.32, 2.04], name: "Somalia (DiSoCo)", category: "displacement" },
+    { person: "boeyink", coord: [22.0, -30.55], name: "South Africa (DiSoCo)", category: "displacement" },
+    { person: "boeyink", coord: [25.0, -2.5], name: "DR Congo (DiSoCo)", category: "displacement" },
+    { person: "maazaz",  coord: [12.35, 7.37], name: "Cameroon (postdoc fieldwork)", category: "governance" },
+    { person: "maazaz",  coord: [-1.56, 12.24], name: "Burkina Faso (postdoc fieldwork)", category: "governance" },
+    { person: "gambino", coord: [39.66, -4.05], name: "Mombasa, Kenya", category: "infrastructure" }
+  ];
+
+  const CATEGORY_COLOR = {
+    "governance":    "#b8543a",
+    "infrastructure":"#c89344",
+    "policing":      "#2d4a4f",
+    "displacement":  "#6b7a5a",
+    "migration":     "#6b7a5a",
+    "water":         "#4a6a78"
+  };
+
+  // Map each profile to its category color for pins
+  const PROFILE_TO_PIN_CAT = {
+    "hendriks":  "governance",
+    "gambino":   "infrastructure",
+    "wairuri":   "policing",
+    "maazaz":    "water",
+    "durodola":  "displacement",
+    "douglas":   "migration",
+    "boeyink":   "displacement"
+  };
+
+  /* ===========================================================
+     CAROUSEL
+     =========================================================== */
+  const carousel = document.getElementById("profileCarousel");
+  const dotsEl = document.getElementById("dots");
+
+  PROFILES.forEach((p, i) => {
+    const tagsHtml = p.tags.map(t => `<span class="tag">${t}</span>`).join("");
+    const card = document.createElement("article");
+    card.className = "profile-card";
+    card.dataset.id = p.id;
+    card.innerHTML = `
+      <div class="crest" style="background: linear-gradient(135deg, ${p.color}, ${shade(p.color, -25)});">
+        <span class="year">${p.year}</span>
+        <span class="mono">${p.initials}</span>
+        <span class="country">${p.country}</span>
+      </div>
+      <div class="body">
+        <h3>${p.name}</h3>
+        <div class="role">${p.role}</div>
+        <div class="thesis">${p.thesis}</div>
+        <div class="tags">${tagsHtml}</div>
+        <div class="read-more">Read the full profile</div>
+      </div>
+    `;
+    card.addEventListener("click", () => openReader(p.id));
+    carousel.appendChild(card);
+
+    const dot = document.createElement("button");
+    dot.className = "dot" + (i === 0 ? " active" : "");
+    dot.dataset.idx = i;
+    dot.setAttribute("aria-label", `Go to profile ${i + 1}`);
+    dot.addEventListener("click", () => scrollToCard(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function shade(hex, percent) {
+    const f = parseInt(hex.slice(1), 16);
+    const t = percent < 0 ? 0 : 255;
+    const p = Math.abs(percent) / 100;
+    const R = f >> 16, G = (f >> 8) & 0x00FF, B = f & 0x0000FF;
+    const r = Math.round((t - R) * p) + R;
+    const g = Math.round((t - G) * p) + G;
+    const b = Math.round((t - B) * p) + B;
+    return "#" + (0x1000000 + r * 0x10000 + g * 0x100 + b).toString(16).slice(1);
+  }
+
+  const cards = () => Array.from(carousel.querySelectorAll(".profile-card"));
+  function scrollToCard(i) {
+    const c = cards()[i];
+    if (!c) return;
+    carousel.scrollTo({ left: c.offsetLeft - carousel.offsetLeft, behavior: "smooth" });
+  }
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    carousel.scrollBy({ left: -carousel.clientWidth * 0.7, behavior: "smooth" });
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    carousel.scrollBy({ left: carousel.clientWidth * 0.7, behavior: "smooth" });
+  });
+  carousel.addEventListener("scroll", () => {
+    const x = carousel.scrollLeft + 20;
+    let best = 0, bestDist = Infinity;
+    cards().forEach((c, i) => {
+      const d = Math.abs(c.offsetLeft - carousel.offsetLeft - x);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle("active", i === best));
+  }, { passive: true });
+
+  /* ===========================================================
+     READER OVERLAY
+     =========================================================== */
+  const reader = document.getElementById("reader");
+  const readerClose = document.getElementById("readerClose");
+
+  function openReader(id) {
+    const p = PROFILES.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById("readerCrest").style.background =
+      `linear-gradient(135deg, ${p.color}, ${shade(p.color, -25)})`;
+    document.getElementById("readerCrest").textContent = p.tagline;
+    document.getElementById("readerSubhead").textContent = `Dr ${p.name} · ${p.country} · ${p.year}`;
+    document.getElementById("readerName").textContent = p.name;
+    document.getElementById("readerThesis").innerHTML = `“${p.thesis}”`;
+    document.getElementById("readerQ1").innerHTML = `<p>${p.q1}</p>`;
+    document.getElementById("readerQ2").innerHTML = `<p>${p.q2}</p>`;
+    document.getElementById("readerQ3").innerHTML = `<p>${p.q3}</p>`;
+    document.getElementById("readerField").textContent = p.field;
+    document.getElementById("readerToday").textContent = p.today;
+    reader.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeReader() {
+    reader.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  readerClose.addEventListener("click", closeReader);
+  reader.addEventListener("click", (e) => { if (e.target === reader) closeReader(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeReader(); });
+
+  /* ===========================================================
+     AFRICA MAP (d3 + world-atlas, filtered to Africa)
+     =========================================================== */
+  const AFRICA_CODES = new Set(["012","024","204","072","854","108","132","120","140","148","174","178","384","180","262","818","226","232","748","231","266","270","288","324","624","404","426","430","434","450","454","466","478","480","504","508","516","562","566","646","678","686","690","694","706","710","728","729","834","768","788","800","732","894","716"]);
+
+  const MAP_W = 600, MAP_H = 620;
+  const svg = d3.select("#africaMap");
+  const tooltip = d3.select("#mapTooltip");
+  const panelName  = document.getElementById("panelName");
+  const panelWhere = document.getElementById("panelWhere");
+  const panelBlurb = document.getElementById("panelBlurb");
+  const panelMeta  = document.getElementById("panelMeta");
+
+  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json")
+    .then(world => {
+      const all = topojson.feature(world, world.objects.countries);
+      const africa = { type: "FeatureCollection", features: all.features.filter(f => AFRICA_CODES.has(String(f.id).padStart(3, "0"))) };
+
+      const projection = d3.geoMercator()
+        .fitExtent([[30, 20], [MAP_W - 30, MAP_H - 20]], africa);
+      const path = d3.geoPath(projection);
+
+      const gCountries = svg.append("g");
+      gCountries.selectAll("path")
+        .data(africa.features)
+        .join("path")
+        .attr("d", path)
+        .attr("class", "country");
+
+      const gPins = svg.append("g");
+      const allPins = [
+        ...PROFILES.map(p => ({
+          person: p.id,
+          coord: p.coord,
+          name: `${p.name} — ${p.where}`,
+          category: PROFILE_TO_PIN_CAT[p.id],
+          primary: true
+        })),
+        ...EXTRA_PINS.map(e => ({ ...e, primary: false }))
+      ];
+
+      const pins = gPins.selectAll("g.pin")
+        .data(allPins)
+        .join("g")
+        .attr("class", "pin")
+        .attr("transform", d => {
+          const xy = projection(d.coord);
+          return `translate(${xy[0]}, ${xy[1]})`;
+        });
+
+      pins.append("circle")
+        .attr("class", "pulse")
+        .attr("r", 6)
+        .attr("stroke", d => CATEGORY_COLOR[d.category] || "#fff")
+        .attr("stroke-width", 2);
+
+      pins.append("circle")
+        .attr("class", "outer")
+        .attr("r", d => d.primary ? 9 : 6)
+        .attr("fill", d => CATEGORY_COLOR[d.category] || "#fff");
+
+      pins.append("circle")
+        .attr("r", d => d.primary ? 3 : 2)
+        .attr("fill", "#fff");
+
+      pins.on("mouseenter", function (event, d) {
+          showPersonInPanel(d.person, d.name);
+          d3.select(this).classed("active", true);
+          const rect = document.getElementById("mapWrap").getBoundingClientRect();
+          const xy = projection(d.coord);
+          const scaleX = rect.width / MAP_W;
+          const scaleY = rect.height / MAP_H;
+          tooltip
+            .style("left", (xy[0] * scaleX) + "px")
+            .style("top",  (xy[1] * scaleY) + "px")
+            .text(d.name)
+            .classed("show", true);
+        })
+        .on("mouseleave", function () {
+          d3.select(this).classed("active", false);
+          tooltip.classed("show", false);
+        })
+        .on("click", function (event, d) {
+          openReader(d.person);
+        });
+
+      // Default panel content: highlight first person
+      showPersonInPanel(PROFILES[0].id, `${PROFILES[0].name} — ${PROFILES[0].where}`);
+    })
+    .catch(err => {
+      console.error("Map load failed", err);
+      document.getElementById("mapWrap").innerHTML =
+        '<div style="padding: 40px; color: rgba(245,237,224,0.6); font-family: var(--sans);">Map data couldn\'t load (likely offline). The map needs internet access to fetch the Africa basemap.</div>';
+    });
+
+  function showPersonInPanel(id, where) {
+    const p = PROFILES.find(x => x.id === id);
+    if (!p) return;
+    panelName.textContent  = p.name;
+    panelWhere.textContent = where || p.where;
+    panelBlurb.textContent = p.tagline;
+    panelMeta.innerHTML = `
+      <strong style="color: var(--cream); font-weight: 500;">Fieldwork:</strong> ${p.field}<br>
+      <strong style="color: var(--cream); font-weight: 500;">Today:</strong> ${p.today}<br>
+      <em style="display: inline-block; margin-top: 10px; color: var(--ochre);">Click the pin to read the full profile →</em>
+    `;
+  }
+
+  /* ===========================================================
+     PATHWAYS — custom flow + person grid
+     =========================================================== */
+  const CATEGORIES = [
+    {
+      id: "academia",
+      title: "Academia",
+      subtitle: "UK & European universities",
+      people: ["hendriks", "gambino", "wairuri", "maazaz"]
+    },
+    {
+      id: "policy",
+      title: "Policy Research",
+      subtitle: "Think tanks & research institutes",
+      people: ["durodola"]
+    },
+    {
+      id: "civilsociety",
+      title: "Civil Society",
+      subtitle: "Humanitarian practice & NGOs",
+      people: ["boeyink"]
+    },
+    {
+      id: "professional",
+      title: "Programme Leadership",
+      subtitle: "University professional & scholarship roles",
+      people: ["douglas"]
+    }
+  ];
+
+  const FLOW_W = 1100, FLOW_H = 360;
+  const flow = d3.select("#pathFlow");
+  flow.selectAll("*").remove();
+
+  const sourceX = 80, sourceY = FLOW_H / 2, sourceW = 200, sourceH = 64;
+
+  flow.append("g")
+    .attr("class", "path-source")
+    .append("rect")
+    .attr("x", sourceX).attr("y", sourceY - sourceH / 2)
+    .attr("width", sourceW).attr("height", sourceH)
+    .attr("rx", 4);
+
+  flow.select(".path-source")
+    .append("text")
+    .attr("x", sourceX + sourceW / 2)
+    .attr("y", sourceY - 6)
+    .attr("text-anchor", "middle")
+    .text("PhD at CAS Edinburgh");
+
+  flow.select(".path-source")
+    .append("text")
+    .attr("x", sourceX + sourceW / 2)
+    .attr("y", sourceY + 14)
+    .attr("text-anchor", "middle")
+    .style("fill", "var(--ochre)")
+    .style("font-family", "var(--sans)")
+    .style("font-size", "11px")
+    .style("letter-spacing", "0.14em")
+    .style("text-transform", "uppercase")
+    .text("African Studies · Int'l Development");
+
+  const catX = 720, catW = 280, catH = 60;
+  const catGap = (FLOW_H - CATEGORIES.length * catH) / (CATEGORIES.length + 1);
+
+  // Streams
+  const streamLayer = flow.append("g").attr("class", "streams");
+  CATEGORIES.forEach((cat, i) => {
+    const catY = catGap + i * (catH + catGap) + catH / 2;
+    const widthFactor = cat.people.length;
+    const sx = sourceX + sourceW;
+    const ex = catX;
+    streamLayer.append("path")
+      .attr("class", "path-stream")
+      .attr("data-cat", cat.id)
+      .attr("stroke-width", 8 + widthFactor * 6)
+      .attr("d", `M${sx},${sourceY} C${(sx + ex) / 2},${sourceY} ${(sx + ex) / 2},${catY} ${ex},${catY}`);
+  });
+
+  // Category boxes
+  const catLayer = flow.append("g").attr("class", "cats");
+  CATEGORIES.forEach((cat, i) => {
+    const catY = catGap + i * (catH + catGap);
+    const g = catLayer.append("g")
+      .attr("class", "path-cat")
+      .attr("data-cat", cat.id)
+      .style("cursor", "pointer")
+      .on("mouseenter", () => highlightCat(cat.id))
+      .on("mouseleave", () => highlightCat(null))
+      .on("click", () => toggleCat(cat.id));
+
+    g.append("rect")
+      .attr("x", catX).attr("y", catY)
+      .attr("width", catW).attr("height", catH)
+      .attr("rx", 4);
+
+    g.append("text")
+      .attr("class", "title")
+      .attr("x", catX + 18).attr("y", catY + 26)
+      .text(cat.title);
+
+    g.append("text")
+      .attr("class", "count")
+      .attr("x", catX + 18).attr("y", catY + 46)
+      .text(`${cat.people.length} graduate${cat.people.length > 1 ? "s" : ""} · ${cat.subtitle}`);
+  });
+
+  // People grid
+  const peopleCol = document.getElementById("peopleCol");
+  function renderPeople(activeCat) {
+    peopleCol.innerHTML = "";
+    PROFILES.forEach(p => {
+      const card = document.createElement("div");
+      const isMatch = !activeCat || p.category === activeCat;
+      card.className = "person-card" + (isMatch ? " match" : " dim");
+      const cat = CATEGORIES.find(c => c.id === p.category);
+      card.innerHTML = `
+        <div class="cat-tag">${cat ? cat.title : ""}</div>
+        <div class="name">${p.name}</div>
+        <div class="post">${p.pathwayDetail}</div>
+      `;
+      card.addEventListener("click", () => openReader(p.id));
+      peopleCol.appendChild(card);
+    });
+  }
+  renderPeople(null);
+
+  let activeCat = null;
+  function highlightCat(id) {
+    flow.selectAll(".path-stream").classed("highlight", d => false);
+    flow.selectAll(".path-cat").classed("active", false);
+    const target = id || activeCat;
+    if (!target) {
+      renderPeople(activeCat);
+      return;
+    }
+    flow.selectAll(`.path-stream[data-cat='${target}']`).classed("highlight", true);
+    flow.selectAll(`.path-cat[data-cat='${target}']`).classed("active", true);
+    renderPeople(target);
+  }
+  function toggleCat(id) {
+    activeCat = (activeCat === id) ? null : id;
+    highlightCat(activeCat);
+  }
+
+  /* ===========================================================
+     NAV & REVEAL
+     =========================================================== */
+  const nav = document.querySelector("nav.top");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 40);
+  }, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
