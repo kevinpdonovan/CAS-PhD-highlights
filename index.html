@@ -194,6 +194,59 @@
       color: var(--ink-soft);
       display: flex; align-items: center; gap: 12px;
     }
+
+    /* ===== Hero institutional mark (top-right) ===== */
+    .hero-mark {
+      position: absolute;
+      top: 160px;
+      right: var(--gutter);
+      z-index: 4;
+      text-align: right;
+      max-width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .mark-crest {
+      width: 60px; height: 60px;
+      color: var(--terracotta-deep);
+      margin-bottom: 18px;
+      display: block;
+    }
+    .mark-uni {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .mark-rule {
+      width: 36px; height: 1px;
+      background: var(--rule);
+      border: 0;
+      margin: 14px 0;
+    }
+    .mark-centre {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(18px, 1.9vw, 22px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    @media (max-width: 1024px) {
+      .hero-mark {
+        top: 140px;
+        max-width: 200px;
+      }
+      .mark-crest { width: 48px; height: 48px; margin-bottom: 12px; }
+      .mark-uni { font-size: 13px; }
+      .mark-centre { font-size: 16px; }
+    }
+    @media (max-width: 720px) {
+      .hero-mark { display: none; }
+    }
     .scroll-cue::after {
       content: ""; width: 60px; height: 1px; background: var(--ink-soft);
       animation: line 2s ease-in-out infinite;
@@ -906,6 +959,26 @@
   </nav>
 
   <header class="hero">
+    <!--
+      INSTITUTIONAL MARK
+      The SVG below is a generic placeholder seal. To use the official
+      University of Edinburgh logo, replace the entire <svg class="mark-crest">
+      block with an <img src="path/to/uoe-logo.svg" alt="University of Edinburgh"
+      class="mark-crest"> tag (or paste the official SVG markup in place).
+      Keep the surrounding <aside class="hero-mark"> wrapper so the layout
+      and typography remain consistent.
+    -->
+    <aside class="hero-mark" aria-label="University of Edinburgh — Centre of African Studies">
+      <svg class="mark-crest" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="32" cy="32" r="22" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.55"/>
+        <circle cx="32" cy="32" r="6" fill="currentColor"/>
+        <circle cx="32" cy="32" r="2.5" fill="var(--paper)"/>
+      </svg>
+      <div class="mark-uni">The University of Edinburgh</div>
+      <hr class="mark-rule">
+      <div class="mark-centre">Centre of<br>African Studies</div>
+    </aside>
     <div class="eyebrow">A spotlight on doctoral research</div>
     <h1 class="display" style="margin-top: 24px;">Stories<br>from <em>the&nbsp;field.</em></h1>
     <hr class="rule">
