@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stories from the Field — Ph.D. Research at the Centre of African Studies, Edinburgh</title>
-  <meta name="description" content="A spotlight on doctoral research and careers from the Centre of African Studies, University of Edinburgh.">
+  <title>Stories from the Field — Ph.D. programmes in African Studies and International Development, University of Edinburgh</title>
+  <meta name="description" content="A spotlight on doctoral research and careers from the Centre of African Studies, University of Edinburgh — Ph.D. programmes in African Studies and International Development.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -67,7 +67,7 @@
       letter-spacing: 0.18em;
       font-size: 12px;
       font-weight: 600;
-      color: var(--terracotta);
+      color: var(--terracotta-deep);
     }
     .lede {
       font-family: var(--serif);
@@ -87,6 +87,60 @@
     }
 
     a { color: var(--terracotta-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    abbr[title] { text-decoration: none; cursor: help; }
+
+    /* ===== Skip link & screen-reader-only utility ===== */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0);
+      white-space: nowrap; border: 0;
+    }
+    .skip-link {
+      position: absolute;
+      left: 16px; top: -60px;
+      z-index: 200;
+      background: var(--ink);
+      color: var(--cream);
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* ===== Focus visibility (keyboard navigation) ===== */
+    :focus-visible {
+      outline: 3px solid var(--terracotta);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    /* SVG elements (map pins, pathway boxes) need an explicit focus ring */
+    g.pin:focus-visible, .path-cat:focus-visible {
+      outline: 3px solid var(--ochre);
+      outline-offset: 2px;
+    }
+    .profile-card:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 80px -20px rgba(28, 24, 20, 0.35);
+    }
+
+    /* ===== Reduced motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .map-wrap .pin .pulse { display: none; }
+      .scroll-cue::after { animation: none; }
+    }
 
     /* ===== Nav ===== */
     nav.top {
@@ -112,7 +166,7 @@
     nav .brand small {
       display: block;
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--ink-soft);
@@ -140,6 +194,38 @@
     @media (max-width: 720px) {
       nav .links { gap: 16px; }
       nav .links a { font-size: 12px; }
+    }
+
+    /* ===== Programme switcher ===== */
+    nav .nav-right { display: flex; align-items: center; gap: 28px; }
+    .prog-switch {
+      display: inline-flex;
+      background: var(--paper-deep);
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      padding: 3px;
+    }
+    .prog-switch .prog {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--ink-soft);
+      padding: 6px 15px;
+      border-radius: 100px;
+      transition: background 0.25s, color 0.25s;
+      white-space: nowrap;
+    }
+    .prog-switch .prog:hover { color: var(--ink); }
+    .prog-switch .prog.active { background: var(--terracotta); color: #fff; }
+    .prog-switch .prog.active:hover { color: #fff; }
+    @media (max-width: 1024px) {
+      nav .nav-right { gap: 16px; }
+      .prog-switch .prog { font-size: 12px; padding: 5px 11px; }
+    }
+    @media (max-width: 760px) {
+      nav .links { display: none; }
     }
 
     /* ===== Hero ===== */
@@ -188,7 +274,7 @@
       position: absolute;
       bottom: 32px; left: var(--gutter);
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-soft);
@@ -350,7 +436,7 @@
     .profile-card .crest .country {
       position: absolute; bottom: 16px; left: 20px;
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       font-weight: 500;
@@ -367,6 +453,15 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+    }
+    .profile-card .degree-badge {
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--terracotta-deep);
+      margin-bottom: 10px;
     }
     .profile-card h3 {
       font-size: 30px;
@@ -396,7 +491,7 @@
     }
     .profile-card .tag {
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       font-weight: 500;
@@ -411,7 +506,7 @@
       font-size: 12px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--terracotta);
+      color: var(--terracotta-deep);
       font-weight: 600;
       display: flex; align-items: center; gap: 8px;
     }
@@ -573,7 +668,7 @@
     .reader .footer-meta .field .label {
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      font-size: 11px;
+      font-size: 12px;
       color: var(--ink-soft);
       margin-bottom: 6px;
       font-weight: 600;
@@ -683,7 +778,7 @@
       margin-top: 24px;
       display: flex; flex-wrap: wrap; gap: 10px 18px;
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: rgba(245, 237, 224, 0.6);
@@ -734,7 +829,7 @@
     .path-cat text.count {
       fill: var(--ink-soft);
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
@@ -879,18 +974,68 @@
     .btn.ghost { background: transparent; color: var(--ink); }
     .btn.ghost:hover { background: var(--ink); color: var(--cream); }
 
+    /* ===== Support / giving band ===== */
+    .give {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter) 48px;
+    }
+    .give-inner {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+      padding: clamp(32px, 5vw, 56px);
+      display: grid;
+      grid-template-columns: 1.6fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+    .give-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 14px 0 12px;
+    }
+    .give-title em { font-style: italic; color: var(--terracotta); }
+    .give-text {
+      font-family: var(--serif);
+      font-weight: 350;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      max-width: 52ch;
+      margin: 0;
+    }
+    .give-btn { white-space: nowrap; }
+    @media (max-width: 760px) {
+      .give-inner { grid-template-columns: 1fr; gap: 24px; }
+    }
+
     /* ===== Footer ===== */
     footer {
       padding: 56px var(--gutter) 64px;
       max-width: var(--max);
       margin: 0 auto;
       border-top: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 32px;
       font-family: var(--sans);
       font-size: 13px;
       color: var(--ink-soft);
+    }
+    footer .footer-cols {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 32px;
+    }
+    footer .footer-legal {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      max-width: 80ch;
     }
     footer .colophon {
       font-family: var(--serif);
@@ -902,7 +1047,7 @@
     footer a:hover { text-decoration: underline; }
     footer h4 {
       font-family: var(--sans);
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 600;
@@ -912,7 +1057,7 @@
     footer ul { list-style: none; padding: 0; margin: 0; }
     footer ul li { margin-bottom: 6px; }
     @media (max-width: 700px) {
-      footer { grid-template-columns: 1fr; }
+      footer .footer-cols { grid-template-columns: 1fr; }
     }
 
     /* ===== Reveal animation ===== */
@@ -945,19 +1090,23 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <nav class="top">
     <div class="brand">
       Stories from the Field
-      <small>Centre of African Studies · Edinburgh</small>
+      <small>Ph.D. programmes in African Studies and International Development<br>University of Edinburgh</small>
     </div>
-    <div class="links">
-      <a href="#profiles">Profiles</a>
-      <a href="#map">Map</a>
-      <a href="#pathways">Pathways</a>
-      <a href="#support">Support</a>
+    <div class="nav-right">
+      <div class="links">
+        <a href="#profiles">Profiles</a>
+        <a href="#map">Map</a>
+        <a href="#pathways">Pathways</a>
+        <a href="#support">Support</a>
+      </div>
     </div>
   </nav>
 
+  <main id="main-content">
   <header class="hero">
     <!--
       INSTITUTIONAL MARK
@@ -984,7 +1133,7 @@
     <hr class="rule">
     <div class="hero-meta">
       <p class="lede">
-        Doctoral research at the Centre of African Studies, University of Edinburgh, takes its students to refugee camps in Tanzania, water utilities in Chad, port construction sites in Kenya, and the offices of civil servants in Malawi. Here is what some of them found — and where their work has taken them since.
+        Doctoral research at the Centre of African Studies, University of Edinburgh takes its students to refugee camps in Tanzania, water supply networks in Chad, port construction sites in Kenya, and the offices of civil servants in Malawi. Our students receive PhDs in both African Studies and in International Development. Here is what some of them found — and where their work has since taken them.
       </p>
       <div class="stats">
         <div>
@@ -1042,14 +1191,14 @@
         <div>
           <div class="eyebrow">A continent of fieldsites</div>
           <p class="lede" style="margin-top: 16px;">
-            From the floodplains of southern Malawi to the Lamu port construction sites on the Kenyan coast, the everyday geography of CAS doctoral work spans the continent. Click a pin to see who worked there and why.
+            From the floodplains of southern Malawi to the Lamu port construction sites on the Kenyan coast, the everyday geography of <abbr title="Centre of African Studies">CAS</abbr> doctoral work spans the continent. Click a pin to see who worked there and why.
           </p>
         </div>
       </div>
 
       <div class="map-grid">
         <div class="map-wrap" id="mapWrap">
-          <svg id="africaMap" viewBox="0 0 600 620" preserveAspectRatio="xMidYMid meet"></svg>
+          <svg id="africaMap" viewBox="0 0 600 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of Africa showing the fieldwork locations of the doctoral researchers. The same information is available as a list in the panel and legend beside the map."></svg>
           <div class="map-tooltip" id="mapTooltip"></div>
         </div>
         <aside class="map-panel" id="mapPanel">
@@ -1079,13 +1228,13 @@
       <div>
         <div class="eyebrow">Where graduates go</div>
         <p class="lede" style="margin-top: 16px;">
-          A CAS doctorate doesn't sort neatly into one career. Some graduates head into university posts; others into humanitarian or government work; many move between the two. Click a destination to see who took that route.
+          An Edinburgh doctorate in African Studies or International Development doesn't sort neatly into one career. Some graduates head into university posts; others into humanitarian or government work; many move between the two. Click a destination to see who took that route.
         </p>
       </div>
     </div>
 
     <div class="pathways-stage">
-      <svg class="flow" viewBox="0 0 1100 440" id="pathFlow" preserveAspectRatio="xMidYMid meet"></svg>
+      <svg class="flow" viewBox="0 0 1100 440" id="pathFlow" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Diagram linking the Ph.D. programmes to four career pathways: academia, policy, civil society, and professional services. Each pathway and its graduates are also listed as selectable cards below."></svg>
       <div class="path-people-col" id="peopleCol"></div>
     </div>
   </section>
@@ -1093,7 +1242,7 @@
   <section class="cta" id="support">
     <h2>Stay <em>in&nbsp;touch.</em></h2>
     <p class="lede">
-      Follow what we do, sign up for our mailing list, and connect with the Centre and the International Development programme on LinkedIn.
+      Follow what we do, sign up for our mailing list, and connect with the Centre of African Studies and the International Development programme on LinkedIn.
     </p>
 
     <form class="subscribe-form" id="subscribeForm" novalidate>
@@ -1103,32 +1252,54 @@
     <div class="subscribe-note" id="subscribeNote">We'll open a pre-filled email to our office so they can add you to the list.</div>
 
     <div class="actions">
-      <a class="btn primary" href="https://www.sps.ed.ac.uk/centre-african-studies" target="_blank" rel="noopener">Visit the Centre →</a>
-      <a class="btn ghost" href="https://www.linkedin.com/company/the-centre-of-african-studies-the-university-of-edinburgh/" target="_blank" rel="noopener">CAS on LinkedIn</a>
-      <a class="btn ghost" href="https://www.linkedin.com/company/international-development-the-university-of-edinburgh/" target="_blank" rel="noopener">Int'l Development on LinkedIn</a>
+      <a class="btn primary" href="https://www.sps.ed.ac.uk/centre-african-studies" target="_blank" rel="noopener noreferrer">Visit the Centre →<span class="visually-hidden"> (opens in a new tab)</span></a>
+      <a class="btn ghost" href="https://www.linkedin.com/company/the-centre-of-african-studies-the-university-of-edinburgh/" target="_blank" rel="noopener noreferrer">Centre of African Studies on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+      <a class="btn ghost" href="https://www.linkedin.com/company/international-development-the-university-of-edinburgh/" target="_blank" rel="noopener noreferrer">International Development on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
     </div>
   </section>
 
+  <!-- ===== Support / giving band =====
+       Placeholder donation link for the soft launch. Replace href="#give-now"
+       with the real donation / giving page URL when it is available. -->
+  <section class="give" id="give">
+    <div class="give-inner">
+      <div>
+        <div class="eyebrow">Support the Programme</div>
+        <h3 class="give-title">Help fund the next generation of <em>doctoral researchers at the Centre of African Studies.</em></h3>
+        <p class="give-text">Your gift supports doctoral scholarships, fieldwork, and the public sharing of research like the stories on this page.</p>
+      </div>
+      <a class="btn primary give-btn" id="giveBtn" href="#give-now" rel="noopener">Support the Programme &rarr;</a>
+    </div>
+  </section>
+  </main>
+
   <footer>
-    <div class="colophon">
-      <strong style="font-family: var(--serif); font-size: 20px; font-weight: 400;">Centre of African Studies</strong><br>
-      University of Edinburgh · School of Social and Political Science<br>
-      One of Europe's leading interdisciplinary doctoral programmes in African Studies and International Development.
+    <div class="footer-cols">
+      <div class="colophon">
+        <strong style="font-family: var(--serif); font-size: 20px; font-weight: 400;">Centre of African Studies</strong><br>
+        University of Edinburgh · School of Social and Political Science<br>
+        Home to interdisciplinary doctoral programmes in African Studies and International Development.
+      </div>
+      <div>
+        <h4>Programme</h4>
+        <ul>
+          <li><a href="https://www.sps.ed.ac.uk/centre-african-studies">About the Centre</a></li>
+          <li><a href="https://www.sps.ed.ac.uk/centre-african-studies/phd-graduates">Original graduate page</a></li>
+          <li><a href="https://era.ed.ac.uk/handle/1842/1685">Doctoral thesis archive</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>About this page</h4>
+        <ul>
+          <li><a href="https://www.sps.ed.ac.uk/centre-african-studies">Centre of African Studies</a></li>
+          <li><a href="https://www.linkedin.com/company/the-centre-of-african-studies-the-university-of-edinburgh/" target="_blank" rel="noopener noreferrer">CAS on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <h4>Programme</h4>
-      <ul>
-        <li><a href="https://www.sps.ed.ac.uk/centre-african-studies">About the Centre</a></li>
-        <li><a href="https://www.sps.ed.ac.uk/centre-african-studies/phd-graduates">Original graduate page</a></li>
-        <li><a href="https://era.ed.ac.uk/handle/1842/1685">Doctoral thesis archive</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>This page</h4>
-      <ul>
-        <li>A design prototype</li>
-        <li>Based on seven public profiles</li>
-      </ul>
+    <div class="footer-legal">
+      An independent page created by researchers connected to the Centre of African Studies at the
+      University of Edinburgh. It is not an official University of Edinburgh website. All research is
+      the work of the graduates featured.
     </div>
   </footer>
 
@@ -1174,6 +1345,7 @@
     {
       id: "hendriks",
       name: "Tanja Hendriks",
+      degree: "African Studies",
       initials: "TH",
       color: "#b8543a",
       country: "Malawi",
@@ -1195,6 +1367,7 @@
     {
       id: "gambino",
       name: "Elisa Gambino",
+      degree: "African Studies",
       initials: "EG",
       color: "#c89344",
       country: "Kenya",
@@ -1216,6 +1389,7 @@
     {
       id: "wairuri",
       name: "Kamau Wairuri",
+      degree: "African Studies",
       initials: "KW",
       color: "#2d4a4f",
       country: "Kenya",
@@ -1237,6 +1411,7 @@
     {
       id: "maazaz",
       name: "Ismaël Maazaz",
+      degree: "African Studies",
       initials: "IM",
       color: "#4a6a78",
       country: "Chad",
@@ -1258,6 +1433,7 @@
     {
       id: "durodola",
       name: "Tosin Durodola",
+      degree: "African Studies",
       initials: "TD",
       color: "#6c3a4a",
       country: "Nigeria",
@@ -1279,6 +1455,7 @@
     {
       id: "douglas",
       name: "Megan Douglas",
+      degree: "International Development",
       initials: "MD",
       color: "#5e7a5a",
       country: "Kenya",
@@ -1300,6 +1477,7 @@
     {
       id: "boeyink",
       name: "Clayton Boeyink",
+      degree: "International Development",
       initials: "CB",
       color: "#a2613b",
       country: "Tanzania",
@@ -1448,6 +1626,9 @@
     const card = document.createElement("article");
     card.className = "profile-card";
     card.dataset.id = p.id;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `Read the full profile of Dr ${p.name}, Ph.D. in ${p.degree}`);
     card.innerHTML = `
       <div class="crest" style="background: linear-gradient(135deg, ${p.color}, ${shade(p.color, -25)});">
         <div class="pattern">${crestPattern(p.id)}</div>
@@ -1455,6 +1636,7 @@
         <span class="country">${p.country}</span>
       </div>
       <div class="body">
+        <div class="degree-badge">Ph.D. · ${p.degree}</div>
         <h3>${p.name}</h3>
         <div class="role">${p.role}</div>
         <div class="thesis">${p.thesis}</div>
@@ -1463,6 +1645,9 @@
       </div>
     `;
     card.addEventListener("click", () => openReader(p.id));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openReader(p.id); }
+    });
     carousel.appendChild(card);
 
     const dot = document.createElement("button");
@@ -1510,15 +1695,18 @@
      READER OVERLAY
      =========================================================== */
   const reader = document.getElementById("reader");
+  const readerPanel = document.getElementById("readerPanel");
   const readerClose = document.getElementById("readerClose");
+  let lastFocused = null;
 
   function openReader(id) {
     const p = PROFILES.find(x => x.id === id);
     if (!p) return;
+    lastFocused = document.activeElement;
     const crestEl = document.getElementById("readerCrest");
     crestEl.style.background = `linear-gradient(135deg, ${p.color}, ${shade(p.color, -25)})`;
     crestEl.innerHTML = `<div class="pattern">${crestPattern(p.id)}</div><span class="tagline">${p.tagline}</span>`;
-    document.getElementById("readerSubhead").textContent = `Dr ${p.name} · ${p.country} · ${p.year}`;
+    document.getElementById("readerSubhead").textContent = `Dr ${p.name} · Ph.D. in ${p.degree} · ${p.country} · ${p.year}`;
     document.getElementById("readerName").textContent = p.name;
     document.getElementById("readerThesis").innerHTML = `“${p.thesis}”`;
     document.getElementById("readerQ1").innerHTML = `<p>${p.q1}</p>`;
@@ -1528,14 +1716,35 @@
     document.getElementById("readerToday").textContent = p.today;
     reader.classList.add("open");
     document.body.style.overflow = "hidden";
+    readerPanel.scrollTop = 0;
+    readerClose.focus();
   }
   function closeReader() {
+    if (!reader.classList.contains("open")) return;
     reader.classList.remove("open");
     document.body.style.overflow = "";
+    if (lastFocused && typeof lastFocused.focus === "function") {
+      lastFocused.focus();
+      lastFocused = null;
+    }
   }
   readerClose.addEventListener("click", closeReader);
   reader.addEventListener("click", (e) => { if (e.target === reader) closeReader(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeReader(); });
+  // Trap keyboard focus inside the reader while it is open
+  readerPanel.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    const focusable = readerPanel.querySelectorAll(
+      'a[href], button, input, [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
 
   /* ===========================================================
      AFRICA MAP — inlined GeoJSON (no external fetch),
@@ -1593,6 +1802,9 @@
       .data(allPins)
       .join("g")
       .attr("class", "pin")
+      .attr("tabindex", 0)
+      .attr("role", "button")
+      .attr("aria-label", d => `${d.name} — open the profile of ${PROFILES.find(p => p.id === d.person)?.name || "this researcher"}`)
       .attr("transform", d => {
         const xy = pinXY(d.coord);
         return `translate(${xy[0]}, ${xy[1]})`;
@@ -1636,6 +1848,19 @@
       .on("mouseleave", function () {
         d3.select(this).classed("active", false);
         tooltip.classed("show", false);
+      })
+      .on("focus", function (event, d) {
+        showPersonInPanel(d.person, d.name);
+        d3.select(this).classed("active", true);
+      })
+      .on("blur", function () {
+        d3.select(this).classed("active", false);
+      })
+      .on("keydown", function (event, d) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openReader(d.person);
+        }
       })
       .on("click", function (event, d) {
         openReader(d.person);
@@ -1716,22 +1941,11 @@
     .attr("text-anchor", "middle")
     .style("fill", "var(--ochre)")
     .style("font-family", "var(--sans)")
-    .style("font-size", "10px")
-    .style("letter-spacing", "0.12em")
+    .style("font-size", "9px")
+    .style("letter-spacing", "0.06em")
     .style("text-transform", "uppercase")
-    .text("African Studies");
+    .text("African Studies & International Development");
 
-  flow.select(".path-source")
-    .append("text")
-    .attr("x", sourceX + sourceW / 2)
-    .attr("y", sourceY + 26)
-    .attr("text-anchor", "middle")
-    .style("fill", "var(--ochre)")
-    .style("font-family", "var(--sans)")
-    .style("font-size", "10px")
-    .style("letter-spacing", "0.12em")
-    .style("text-transform", "uppercase")
-    .text("International Development");
 
   const catX = 700, catW = 360, catH = 86;
   const catGap = (FLOW_H - CATEGORIES.length * catH) / (CATEGORIES.length + 1);
@@ -1775,9 +1989,17 @@
     const g = catLayer.append("g")
       .attr("class", "path-cat")
       .attr("data-cat", cat.id)
+      .attr("tabindex", 0)
+      .attr("role", "button")
+      .attr("aria-label", `${cat.title} — show the ${cat.people.length} graduate${cat.people.length > 1 ? "s" : ""} on this pathway`)
       .style("cursor", "pointer")
       .on("mouseenter", () => highlightCat(cat.id))
       .on("mouseleave", () => highlightCat(null))
+      .on("focus", () => highlightCat(cat.id))
+      .on("blur", () => highlightCat(null))
+      .on("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleCat(cat.id); }
+      })
       .on("click", () => toggleCat(cat.id));
 
     g.append("rect")
@@ -1812,6 +2034,9 @@
       const card = document.createElement("div");
       const isMatch = !activeCat || p.category === activeCat;
       card.className = "person-card" + (isMatch ? " match" : " dim");
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", `Open the profile of Dr ${p.name}`);
       const cat = CATEGORIES.find(c => c.id === p.category);
       card.innerHTML = `
         <div class="cat-tag">${cat ? cat.title : ""}</div>
@@ -1819,6 +2044,9 @@
         <div class="post">${p.pathwayDetail}</div>
       `;
       card.addEventListener("click", () => openReader(p.id));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openReader(p.id); }
+      });
       peopleCol.appendChild(card);
     });
   }
@@ -1878,6 +2106,44 @@
     subscribeNote.classList.add("success");
     subscribeNote.textContent = "Opening your email client — please send the message to complete your subscription.";
   });
+
+  /* ===========================================================
+     SUPPORT-CLICK NOTIFICATION
+     -----------------------------------------------------------
+     Sends a small, cookie-free "ping" when someone clicks the
+     "Support the Programme" button, so you get an email each time.
+
+     SETUP: paste your notification endpoint between the quotes
+     below. Two free options (see the accompanying setup notes):
+       1. A Google Apps Script web app (free, uses your Gmail), or
+       2. A Formspree form endpoint (free tier).
+     Leave it empty ("") to disable notifications entirely.
+
+     No cookies are set and no personal data is collected — only
+     a timestamp and which page/domain the click came from — so
+     this does not require a cookie-consent banner.
+     =========================================================== */
+  const SUPPORT_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbxUnHRCqR6cEG-TFedfVA86Z95cIhAm1lhXfiSGKoU3fC1XXEvYqy-3wvfufPzeYz2Zww/exec"; 
+
+  function notifySupportClick() {
+    if (!SUPPORT_NOTIFY_URL) return;
+    const payload = JSON.stringify({
+      event: "support_click",
+      page: location.hostname + location.pathname,
+      referrer: document.referrer || "direct",
+      time: new Date().toISOString()
+    });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(SUPPORT_NOTIFY_URL, payload);
+      } else {
+        fetch(SUPPORT_NOTIFY_URL, { method: "POST", body: payload, keepalive: true, mode: "no-cors" });
+      }
+    } catch (err) { /* never block the user's click */ }
+  }
+
+  const giveBtn = document.getElementById("giveBtn");
+  if (giveBtn) giveBtn.addEventListener("click", notifySupportClick);
   </script>
 </body>
 </html>
