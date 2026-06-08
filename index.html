@@ -1136,7 +1136,7 @@
       </p>
       <div class="stats">
         <div>
-          <span class="n">7</span>
+          <span class="n">8</span>
           recent graduates
         </div>
         <div>
@@ -1157,7 +1157,7 @@
       <div class="label">
         <div class="num">01 — Profiles</div>
         <hr class="rule">
-        <h2 class="h2">A sample of<br>seven scholars.</h2>
+        <h2 class="h2">A sample of<br>eight scholars.</h2>
       </div>
       <div>
         <div class="eyebrow">Their Work</div>
@@ -1206,11 +1206,14 @@
           <div class="where" id="panelWhere">Select a fieldsite</div>
           <p class="blurb" id="panelBlurb">Each pin marks a place where a CAS doctoral student spent months of ethnographic, qualitative, or mixed-methods fieldwork. Hover to read about the research; click to open the full profile.</p>
           <div class="meta" id="panelMeta"></div>
-          <div class="legend">
-            <span><i style="background:#b8543a"></i> Governance &amp; the state</span>
-            <span><i style="background:#c89344"></i> Infrastructure &amp; political economy</span>
-            <span><i style="background:#2d4a4f"></i> Policing &amp; rights</span>
-            <span><i style="background:#6b7a5a"></i> Migration &amp; displacement</span>
+          <div class="legend" aria-label="CAS core areas of research">
+            <span><i style="background:#b8543a"></i> Politics, Law &amp; Justice</span>
+            <span><i style="background:#c89344"></i> Economic Development &amp; Change</span>
+            <span><i style="background:#6b7a5a"></i> Migration &amp; Borders</span>
+            <span><i style="background:#2d4a4f"></i> Peace &amp; Conflict</span>
+            <span><i style="background:#4a6a78"></i> Digital Technology, Data &amp; Innovation</span>
+            <span><i style="background:#a2613b"></i> Religion &amp; Social Movements</span>
+            <span><i style="background:#84415c"></i> Gender &amp; Development</span>
           </div>
         </aside>
       </div>
@@ -1489,37 +1492,62 @@
       field: "Tanzania, plus DiSoCo across Somalia, DRC, Kenya, South Africa",
       category: "civilsociety",
       pathwayDetail: "Refugee Resettlement, Lutheran Services (USA)"
+    },
+    {
+      id: "camille",
+      name: "Camille Maubert",
+      degree: "International Development",
+      initials: "CM",
+      color: "#84415c",
+      country: "DR Congo",
+      where: "Goma · eastern DR Congo",
+      coord: [29.22, -1.68],
+      year: "2024",
+      tags: ["Gender-Based Violence", "Conflict", "Implementation Research"],
+      role: "Shifting the gender norms that drive violence against women in eastern DR Congo",
+      thesis: "Pathways of Transformation: Gender, Violence, and Complex Social Change in the Democratic Republic of Congo",
+      tagline: "Eleven months with a Congolese NGO trying to shift the norms that drive violence against women",
+      q1: "Eastern DR Congo is one of the most conflict-affected regions in the world. NGOs have invested heavily in programmes aimed at shifting harmful gender norms and preventing violence against women and girls. But very little is known about how that change happens — the mechanisms through which people engage with, resist, or gradually internalise new ideas about gender and violence. Camille's research focused on that gap, with the aim of producing findings that could inform better programme design and more meaningful measurement.",
+      q2: "She spent eleven months living in Goma, in eastern DR Congo, embedded with a Congolese NGO called Ghovodi, observing their gender-transformative programme as it ran with groups of men, women, and young people in the community. It was iterative and messy, a mix of ethnographic fieldwork and implementation research: she sat in on discussion sessions week after week, followed the programme team in their day-to-day, and conducted interviews. This proximity gave her access to see how people argue, negotiate, and sometimes resist new ideas about gender. One of the most striking observations was how much men's own experiences of vulnerability and suffering — poverty, trauma, loss — shaped how they responded to a programme that asked them to reflect on their role as potential perpetrators of violence. That tension remains central to her current work.",
+      q3: "Camille works as an independent researcher and consultant, advising on programme design, evaluation, and strategy around gender-based violence prevention. It is a challenging career path, especially given the state of the humanitarian and development fields. In practice that means building a client base, creating a professional reputation in a specialised field, and managing the income instability that comes with project-based work. Where possible, she looks for assignments that connect directly to the themes of her doctoral research — engaging men and boys, measuring normative change, adapting programmes to conflict settings — so that the consultancy work and the research agenda continue to develop together. It is very rewarding and gives her real autonomy: she chooses her assignments, works across a wide range of contexts, and the research contributes to tangible outcomes.",
+      today: "Independent researcher and consultant · gender-based violence prevention",
+      field: "Goma, DR Congo · 11 months, 2021–2022",
+      category: "policy",
+      pathwayDetail: "Independent researcher & consultant"
     }
   ];
 
   // Additional fieldwork pins for the map (secondary research sites)
   const EXTRA_PINS = [
-    { person: "boeyink", coord: [45.32, 2.04], name: "Somalia (DiSoCo)", category: "displacement" },
-    { person: "boeyink", coord: [22.0, -30.55], name: "South Africa (DiSoCo)", category: "displacement" },
-    { person: "boeyink", coord: [25.0, -2.5], name: "DR Congo (DiSoCo)", category: "displacement" },
-    { person: "maazaz",  coord: [12.35, 7.37], name: "Cameroon (postdoc fieldwork)", category: "governance" },
-    { person: "maazaz",  coord: [-1.56, 12.24], name: "Burkina Faso (postdoc fieldwork)", category: "governance" },
-    { person: "gambino", coord: [39.66, -4.05], name: "Mombasa, Kenya", category: "infrastructure" }
+    { person: "boeyink", coord: [45.32, 2.04], name: "Somalia (DiSoCo)", category: "migration-borders" },
+    { person: "boeyink", coord: [22.0, -30.55], name: "South Africa (DiSoCo)", category: "migration-borders" },
+    { person: "boeyink", coord: [25.0, -2.5], name: "DR Congo (DiSoCo)", category: "migration-borders" },
+    { person: "maazaz",  coord: [12.35, 7.37], name: "Cameroon (postdoc fieldwork)", category: "economic-development" },
+    { person: "maazaz",  coord: [-1.56, 12.24], name: "Burkina Faso (postdoc fieldwork)", category: "economic-development" },
+    { person: "gambino", coord: [39.66, -4.05], name: "Mombasa, Kenya", category: "economic-development" }
   ];
 
+  // CAS core areas of research (plus Gender & Development) — used to colour the map pins.
   const CATEGORY_COLOR = {
-    "governance":    "#b8543a",
-    "infrastructure":"#c89344",
-    "policing":      "#2d4a4f",
-    "displacement":  "#6b7a5a",
-    "migration":     "#6b7a5a",
-    "water":         "#4a6a78"
+    "politics-law-justice": "#b8543a",
+    "economic-development": "#c89344",
+    "migration-borders":    "#6b7a5a",
+    "peace-conflict":       "#2d4a4f",
+    "digital-data":         "#4a6a78",
+    "religion-social":      "#a2613b",
+    "gender-development":   "#84415c"
   };
 
-  // Map each profile to its category color for pins
+  // Map each profile to its CAS research theme for pins
   const PROFILE_TO_PIN_CAT = {
-    "hendriks":  "governance",
-    "gambino":   "infrastructure",
-    "wairuri":   "policing",
-    "maazaz":    "water",
-    "durodola":  "displacement",
-    "douglas":   "migration",
-    "boeyink":   "displacement"
+    "hendriks":  "politics-law-justice",
+    "gambino":   "economic-development",
+    "wairuri":   "politics-law-justice",
+    "maazaz":    "economic-development",
+    "durodola":  "migration-borders",
+    "douglas":   "migration-borders",
+    "boeyink":   "migration-borders",
+    "camille":   "gender-development"
   };
 
   /* ===========================================================
@@ -1604,7 +1632,11 @@
         <circle cx="60" cy="50" r="5"/><circle cx="340" cy="55" r="5"/>
         <circle cx="200" cy="110" r="6.5"/><circle cx="110" cy="175" r="5"/>
         <circle cx="290" cy="180" r="5"/><circle cx="20" cy="115" r="4"/>
-        <circle cx="380" cy="105" r="4"/></g></svg>`
+        <circle cx="380" cy="105" r="4"/></g></svg>`,
+      // Camille — interlocking ripples: negotiation, normative change between groups
+      camille: `<svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice"><g stroke="${W}0.28)" fill="none" stroke-width="1.2">
+        <circle cx="120" cy="110" r="28"/><circle cx="120" cy="110" r="58"/><circle cx="120" cy="110" r="88"/><circle cx="120" cy="110" r="118"/>
+        <circle cx="280" cy="110" r="28"/><circle cx="280" cy="110" r="58"/><circle cx="280" cy="110" r="88"/><circle cx="280" cy="110" r="118"/></g></svg>`
     };
     return patterns[id] || '';
   }
@@ -1889,9 +1921,9 @@
     },
     {
       id: "policy",
-      title: "Policy Research",
-      subtitle: "Think tanks & research institutes",
-      people: ["durodola"]
+      title: "Policy Research and Consultancy",
+      subtitle: "Think tanks, research institutes & independent consultancy",
+      people: ["durodola", "camille"]
     },
     {
       id: "civilsociety",
